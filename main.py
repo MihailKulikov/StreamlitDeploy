@@ -15,7 +15,8 @@ def calculate_expected_integral(f_str, begin, end):
 
 
 @st.cache(ttl=3600, max_entries=10)
-def calculate_actual_integral(f, nodes, coefficients):
+def calculate_actual_integral(f_str, nodes, coefficients):
+    f: sp.Expr = sp.sympify(f_str)
     return sum(
         map(
             lambda value: value[0] * value[1],
@@ -70,7 +71,7 @@ for node_count in selected_node_counts:
             )
         )
 
-    actual = calculate_actual_integral(f, nodes, coefficients)
+    actual = float(calculate_actual_integral(f_str, nodes, coefficients))
 
     if showing_nodes_on_axis:
         fig = go.Figure()
