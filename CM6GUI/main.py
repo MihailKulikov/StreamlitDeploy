@@ -88,19 +88,19 @@ st.markdown(
     rf"Приблеженное значение интеграла (составная КФ Гаусса) $I_{{CG}} = {actual_with_partition:.{signs_after_comma}}$"
 )
 
+gauss_error = abs(actual_without_partition - expected)
+cg_error = abs(actual_with_partition - expected)
 if showing_expected_integral:
     st.markdown(
         rf"Точное значение интеграла (подсчитано с помощью **sympy**) $I_{{expected}} = {expected:.{signs_after_comma}}$"
     )
-    gauss_error = abs(actual_without_partition - expected)
     st.markdown(
         rf"$|I_{{expected}} - I_{{Gauss}}| = {gauss_error:.{signs_after_comma}}$"
     )
-    cg_error = abs(actual_with_partition - expected)
     st.markdown(rf"$|I_{{expected}} - I_{{CG}}| = {cg_error:.{signs_after_comma}}$")
 
-st.subheader("Сходимость при увеличении количества разбиений")
-if show_error_minimizing:
+if showing_error_minimizing:
+    st.subheader("Сходимость при увеличении количества разбиений")
     st.plotly_chart(show_error_minimizing(partition_count, f_str, p_str, nodes, coefficients, expected, begin, end))
 
 st.subheader("КФ типа Гаусса с весом p(x) на [A; B]")
@@ -155,11 +155,11 @@ st.markdown(
     rf"Приближенное значение интеграла (КФ с весом p(x) на [A; B]) $I_{{p}} = {nast_integral:.{signs_after_comma}}$"
 )
 
+nast_error = abs(nast_integral - expected)
 if showing_expected_integral:
     st.markdown(
         rf"Точное значение интеграла (подсчитано с помощью **sympy**) $I_{{expected}} = {expected:.{signs_after_comma}}$"
     )
-    nast_error = abs(nast_integral - expected)
     st.markdown(rf"$|I_{{expected}} - I_{{p}}| = {nast_error:.{signs_after_comma}}$")
 
 if showing_error_comparison:
